@@ -5,10 +5,10 @@ services:
     container_name: gudang_db
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: root
-      MARIADB_DATABASE: db_gudang
-      MARIADB_USER: admin
-      MARIADB_PASSWORD: 123
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
       - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
@@ -31,9 +31,9 @@ services:
       - ./src:/var/www/html
     environment:
       DB_HOST: db
-      DB_NAME: db_gudang
-      DB_USER: admin
-      DB_PASSWORD: 123
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
     depends_on:
       db:
         condition: service_healthy
