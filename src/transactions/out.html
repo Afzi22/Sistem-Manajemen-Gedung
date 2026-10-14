@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Barang Keluar · E-Gedung</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../aseets/css/tokens.css">
+  <link rel="stylesheet" href="../aseets/css/base.css">
+  <link rel="stylesheet" href="../aseets/css/components.css">
+  <link rel="stylesheet" href="../aseets/css/pages.css">
+</head>
+<body data-root=".." data-active="out"
+      data-title="Barang Keluar"
+      data-subtitle="Catat pemakaian material untuk perawatan gedung. Stok berkurang otomatis dan tidak bisa negatif.">
+
+  <div id="page-content">
+    <div class="tx-layout">
+
+      <!-- ===== Form ===== -->
+      <section class="card" aria-labelledby="form-title">
+        <div class="card__header">
+          <h2 class="card__title" id="form-title">Form barang keluar</h2>
+        </div>
+        <div class="card__body">
+          <form class="form" id="tx-form" novalidate>
+
+            <div class="field">
+              <label class="label" for="sku">Barang <span class="label__req" aria-hidden="true">*</span></label>
+              <select class="select" id="sku" name="sku" required>
+                <option value="" disabled selected>Pilih barang…</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="location">Lokasi pemakaian <span class="label__req" aria-hidden="true">*</span></label>
+              <select class="select" id="location" name="location" required>
+                <option value="" disabled selected>Pilih lokasi…</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="quantity">Jumlah keluar <span class="label__req" aria-hidden="true">*</span></label>
+              <input class="input" type="number" id="quantity" name="quantity" min="1" step="1"
+                     inputmode="numeric" placeholder="Contoh: 5" required aria-describedby="quantity-hint">
+              <p class="field__hint" id="quantity-hint">Bilangan bulat, minimal 1, tidak melebihi stok.</p>
+            </div>
+
+            <div class="field">
+              <label class="label" for="note">Keperluan</label>
+              <textarea class="textarea" id="note" name="note" maxlength="200"
+                        placeholder="Contoh: Ganti lampu koridor yang mati" aria-describedby="note-hint"></textarea>
+              <p class="field__hint" id="note-hint">Opsional, maksimal 200 karakter.</p>
+            </div>
+
+            <div class="stock-preview" id="stock-preview" aria-live="polite" hidden>
+              <div class="stock-preview__col">
+                <span class="stock-preview__label">Stok saat ini</span>
+                <span class="stock-preview__value" id="sp-current">–</span>
+              </div>
+              <span class="stock-preview__arrow" id="sp-arrow"></span>
+              <div class="stock-preview__col">
+                <span class="stock-preview__label">Stok setelah keluar</span>
+                <span class="stock-preview__value stock-preview__after" id="sp-after">–</span>
+              </div>
+              <span class="stock-preview__note" id="sp-note" hidden>Melebihi stok</span>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--accent" id="submit-btn">Simpan barang keluar</button>
+              <button type="reset" class="btn btn--ghost">Kosongkan</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- ===== Riwayat terbaru ===== -->
+      <section class="card" aria-labelledby="recent-title">
+        <div class="card__header">
+          <h2 class="card__title" id="recent-title">Barang keluar terbaru</h2>
+        </div>
+
+        <div class="table-wrap" id="recent-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Waktu</th>
+                <th scope="col">Barang</th>
+                <th scope="col">Lokasi</th>
+                <th scope="col" class="num">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody id="recent-body"></tbody>
+          </table>
+        </div>
+
+        <div class="empty" id="recent-empty" hidden>
+          <p class="empty__title">Belum ada transaksi keluar</p>
+          <p>Transaksi yang kamu catat akan muncul di sini.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../aseets/js/app.js"></script>
+  <script>
+    EG.init(function () {
+      var store = EG.store, esc = EG.esc;
+
+      var form    = document.getElementById('tx-form');
+      var skuEl   = document.getElementById('sku');
+      var locEl   = document.getElementById('location');
+      var qtyEl   = document.getElementById('quantity');
+      var noteEl  = document.getElementById('note');
+      var preview = document.getElementById('stock-preview');
+      var spNow   = document.getElementById('sp-current');
+      var spAfter = document.getElementById('sp-after');
+      var spNote  = document.getElementById('sp-note');
+
+      document.getElementById('sp-arrow').innerHTML = EG.icon('arrow-right');
+
+      function fillSelects() {
+        skuEl.innerHTML = '<option value="" disabled selected>Pilih barang…</option>' +
+          store.getItems().map(function (i) {
+            return '<option value="' + esc(i.sku) + '" data-stock="' + i.qty + '" data-unit="' + esc(i.unit) + '"' +
+                   (i.qty === 0 ? ' disabled' : '') + '>' +
+                   esc(i.sku) + ' — ' + esc(i.name) + (i.qty === 0 ? ' (stok habis)' : '') + '</option>';
+          }).join('');
+        locEl.innerHTML = '<option value="" disabled selected>Pilih lokasi…</option>' +
+          EG.LOCATIONS.map(function (l) { return '<option value="' + esc(l) + '">' + esc(l) + '</option>'; }).join('');
+      }
+
+      /* Pratinjau stok; merah bila jumlah melebihi stok */
+      function updatePreview() {
+        var opt = skuEl.options[skuEl.selectedIndex];
+        if (!opt || !opt.dataset.stock) { preview.hidden = true; return; }
+        var stock = parseInt(opt.dataset.stock, 10);
+        var unit  = opt.dataset.unit || '';
+        var out   = parseInt(qtyEl.value, 10);
+        if (isNaN(out) || out < 0) out = 0;
+
+        var over = out > stock;
+        spNow.textContent   = EG.formatQty(stock) + ' ' + unit;
+        spAfter.textContent = over ? '–' : EG.formatQty(stock - out) + ' ' + unit;
+        spNote.hidden = !over;
+        preview.classList.toggle('is-over', over);
+        preview.hidden = false;
+      }
+
+      function renderRecent() {
+        var rows = store.getTransactions('OUT').slice(0, 8);
+        document.getElementById('recent-wrap').hidden = rows.length === 0;
+        document.getElementById('recent-empty').hidden = rows.length !== 0;
+        document.getElementById('recent-body').innerHTML = rows.map(function (t) {
+          var item = store.findItem(t.sku) || { name: t.sku, unit: '' };
+          var sub  = t.note ? '<span class="table__sub">' + esc(t.note) + '</span>' : '';
+          return '<tr>' +
+            '<td>' + EG.formatDateTime(t.date) + '</td>' +
+            '<td>' + esc(item.name) + '<span class="table__sub">' + esc(t.sku) + '</span></td>' +
+            '<td>' + esc(t.location || '-') + sub + '</td>' +
+            '<td class="num"><span class="qty--out">−' + EG.formatQty(t.qty) + '</span>' +
+              '<span class="table__sub">' + esc(item.unit) + '</span></td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      function clearErrors() {
+        ['sku', 'location', 'quantity'].forEach(function (id) { EG.fieldError(document.getElementById(id), ''); });
+      }
+
+      function validate() {
+        var ok = true;
+        var sku = skuEl.value, loc = locEl.value, qtyRaw = qtyEl.value.trim();
+        var item = store.findItem(sku);
+
+        var m1 = item ? '' : 'Pilih barang yang valid.';
+        EG.fieldError(skuEl, m1); if (m1) ok = false;
+
+        var m2 = loc ? '' : 'Pilih lokasi pemakaian.';
+        EG.fieldError(locEl, m2); if (m2) ok = false;
+
+        var qty = /^\d+$/.test(qtyRaw) ? parseInt(qtyRaw, 10) : NaN;
+        var m3 = '';
+        if (isNaN(qty) || qty < 1) m3 = 'Jumlah harus bilangan bulat minimal 1.';
+        else if (item && qty > item.qty) m3 = 'Stok tidak cukup. Tersedia ' + EG.formatQty(item.qty) + ' ' + item.unit + '.';
+        EG.fieldError(qtyEl, m3); if (m3) ok = false;
+
+        return ok ? { sku: sku, location: loc, qty: qty, note: noteEl.value.trim() } : null;
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var data = validate();
+        if (!data) {
+          EG.flash('error', 'Data belum lengkap atau tidak valid. Periksa kolom yang ditandai.');
+          var first = form.querySelector('.is-invalid');
+          if (first) first.focus();
+          return;
+        }
+        try {
+          var item = store.findItem(data.sku);
+          store.recordOut(data);
+          EG.flash('success', 'Barang keluar berhasil dicatat: −' + EG.formatQty(data.qty) + ' ' + item.unit +
+                              ' ' + item.name + ' untuk ' + data.location + '. Stok sudah berkurang.');
+          form.reset();
+          clearErrors();
+          fillSelects();
+          updatePreview();
+          renderRecent();
+        } catch (err) {
+          EG.fieldError(qtyEl, err.message);
+          EG.flash('error', err.message);
+        }
+      });
+
+      form.addEventListener('reset', function () {
+        setTimeout(function () { clearErrors(); updatePreview(); }, 0);
+      });
+
+      skuEl.addEventListener('change', updatePreview);
+      qtyEl.addEventListener('input', updatePreview);
+
+      fillSelects();
+      updatePreview();
+      renderRecent();
+    });
+  </script>
+</body>
+</html>

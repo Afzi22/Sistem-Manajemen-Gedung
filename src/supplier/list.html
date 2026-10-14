@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Supplier · E-Gedung</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../aseets/css/tokens.css">
+  <link rel="stylesheet" href="../aseets/css/base.css">
+  <link rel="stylesheet" href="../aseets/css/components.css">
+  <link rel="stylesheet" href="../aseets/css/pages.css">
+</head>
+<body data-root=".." data-active="suppliers"
+      data-title="Supplier"
+      data-subtitle="Daftar pemasok material dan suku cadang gedung beserta riwayat pengirimannya.">
+
+  <div id="page-content">
+    <div class="supplier-layout">
+
+      <!-- ===== Daftar supplier ===== -->
+      <section class="card" aria-labelledby="list-title">
+        <div class="card__header card__header--split">
+          <h2 class="card__title" id="list-title">Daftar supplier</h2>
+          <span class="badge badge--neutral" id="supplier-count">0 supplier</span>
+        </div>
+
+        <div class="toolbar">
+          <div class="search" id="search-box"></div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table" id="supplier-table">
+            <thead>
+              <tr>
+                <th scope="col">Supplier</th>
+                <th scope="col">Kategori</th>
+                <th scope="col">Telepon</th>
+                <th scope="col" class="num">Pengiriman</th>
+                <th scope="col">Terakhir kirim</th>
+                <th scope="col"><span class="visually-hidden">Aksi</span></th>
+              </tr>
+            </thead>
+            <tbody id="supplier-body"></tbody>
+          </table>
+        </div>
+
+        <div class="empty" id="supplier-empty" hidden>
+          <p class="empty__title">Belum ada supplier</p>
+          <p>Tambahkan supplier pertama lewat formulir "Tambah supplier".</p>
+        </div>
+      </section>
+
+      <!-- ===== Form tambah supplier ===== -->
+      <section class="card" aria-labelledby="add-title">
+        <div class="card__header">
+          <h2 class="card__title" id="add-title">Tambah supplier</h2>
+        </div>
+        <div class="card__body">
+          <form class="form" id="supplier-form" novalidate>
+
+            <div class="field">
+              <label class="label" for="name">Nama supplier <span class="label__req" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="name" name="name" maxlength="255" required
+                     placeholder="Contoh: PT Terang Karya Elektrik" autocomplete="off">
+            </div>
+
+            <div class="field">
+              <label class="label" for="category">Kategori <span class="label__req" aria-hidden="true">*</span></label>
+              <select class="select" id="category" name="category" required>
+                <option value="" disabled selected>Pilih kategori…</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label class="label" for="phone">Telepon</label>
+              <input class="input" type="tel" id="phone" name="phone" maxlength="20" inputmode="tel"
+                     placeholder="Contoh: 0812 3456 7890" aria-describedby="phone-hint">
+              <p class="field__hint" id="phone-hint">Opsional.</p>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary" id="submit-btn"></button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../aseets/js/app.js"></script>
+  <script>
+    EG.init(function () {
+      var store = EG.store, esc = EG.esc;
+
+      var body    = document.getElementById('supplier-body');
+      var table   = document.getElementById('supplier-table');
+      var empty   = document.getElementById('supplier-empty');
+      var count   = document.getElementById('supplier-count');
+      var form    = document.getElementById('supplier-form');
+      var nameEl  = document.getElementById('name');
+      var catEl   = document.getElementById('category');
+      var phoneEl = document.getElementById('phone');
+      var query   = '';
+
+      /* Isi elemen yang dibuat lewat JS */
+      document.getElementById('search-box').innerHTML =
+        EG.icon('search', 18) +
+        '<label class="visually-hidden" for="supplier-search">Cari supplier</label>' +
+        '<input class="input" type="search" id="supplier-search" placeholder="Cari nama, kategori, atau telepon…" autocomplete="off">';
+      document.getElementById('submit-btn').innerHTML = EG.icon('plus', 18) + ' Simpan supplier';
+      EG.CATEGORIES.forEach(function (c) {
+        catEl.insertAdjacentHTML('beforeend', '<option value="' + esc(c) + '">' + esc(c) + '</option>');
+      });
+
+      /* Ringkasan pengiriman (transaksi IN) per supplier */
+      function summary() {
+        var map = {};
+        store.getTransactions('IN').forEach(function (t) {
+          var s = map[t.supplierId] || (map[t.supplierId] = { total: 0, last: null });
+          s.total++;
+          if (!s.last || t.date > s.last) s.last = t.date;
+        });
+        return map;
+      }
+
+      function render() {
+        var suppliers = store.getSuppliers();
+        var sums = summary();
+        count.textContent = suppliers.length + ' supplier';
+
+        var hasData = suppliers.length > 0;
+        table.parentNode.hidden = !hasData;
+        document.querySelector('.toolbar').hidden = !hasData;
+        empty.hidden = hasData;
+
+        var q = query.trim().toLowerCase();
+        var shown = suppliers.filter(function (s) {
+          return q === '' || (s.name + ' ' + s.category + ' ' + s.phone).toLowerCase().indexOf(q) !== -1;
+        });
+
+        var html = shown.map(function (s) {
+          var sum = sums[s.id] || { total: 0, last: null };
+          var phone = s.phone
+            ? '<a href="tel:' + esc(s.phone.replace(/[^0-9+]/g, '')) + '">' + esc(s.phone) + '</a>'
+            : '<span class="text-muted">-</span>';
+          return '<tr>' +
+            '<td>' + esc(s.name) + '<span class="table__sub">ID ' + s.id + '</span></td>' +
+            '<td><span class="badge badge--cat">' + esc(s.category) + '</span></td>' +
+            '<td>' + phone + '</td>' +
+            '<td class="num">' + EG.formatQty(sum.total) + '<span class="table__sub">kali</span></td>' +
+            '<td>' + (sum.last ? EG.formatDateTime(sum.last) : '<span class="text-muted">Belum ada</span>') + '</td>' +
+            '<td><a class="btn btn--ghost btn--sm" title="Catat barang masuk dari supplier ini" href="../transactions/in.html?supplier=' + s.id + '">' +
+              EG.icon('arrow-down', 16) + '<span class="visually-hidden">Catat barang masuk dari ' + esc(s.name) + '</span></a></td>' +
+            '</tr>';
+        }).join('');
+
+        if (hasData && shown.length === 0) {
+          html = '<tr><td colspan="6" class="text-muted">Tidak ada supplier yang cocok dengan pencarian.</td></tr>';
+        }
+        body.innerHTML = html;
+      }
+
+      document.getElementById('supplier-search').addEventListener('input', function (ev) {
+        query = ev.target.value;
+        render();
+      });
+
+      /* Validasi di sisi browser (aturan sama dengan versi PHP) */
+      function validate() {
+        var name  = nameEl.value.trim();
+        var cat   = catEl.value;
+        var phone = phoneEl.value.trim();
+        var ok = true;
+
+        var nameMsg = name === '' ? 'Nama supplier wajib diisi.'
+                    : name.length > 255 ? 'Nama supplier maksimal 255 karakter.' : '';
+        EG.fieldError(nameEl, nameMsg);
+        if (nameMsg) ok = false;
+
+        var catMsg = cat === '' ? 'Pilih kategori supplier.' : '';
+        EG.fieldError(catEl, catMsg);
+        if (catMsg) ok = false;
+
+        var phoneMsg = (phone !== '' && !/^[0-9+()\-\s]{6,20}$/.test(phone))
+          ? 'Telepon hanya boleh berisi angka, spasi, +, -, dan tanda kurung (6–20 karakter).' : '';
+        EG.fieldError(phoneEl, phoneMsg);
+        if (phoneMsg) ok = false;
+
+        return ok ? { name: name, category: cat, phone: phone } : null;
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var data = validate();
+        if (!data) {
+          EG.flash('error', 'Data belum lengkap. Periksa kolom yang ditandai.');
+          var first = form.querySelector('.is-invalid');
+          if (first) first.focus();
+          return;
+        }
+        store.addSupplier(data);
+        EG.flash('success', 'Supplier "' + data.name + '" berhasil ditambahkan.');
+        form.reset();
+        query = '';
+        document.getElementById('supplier-search').value = '';
+        render();
+      });
+
+      render();
+    });
+  </script>
+</body>
+</html>
