@@ -1,0 +1,72 @@
+/* ==========================================================================
+   pages.css - gaya khusus per halaman
+   ========================================================================== */
+
+/* ---------- Halaman transaksi (in.php dan out.php) ---------- */
+
+.tx-layout {
+  display: grid;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .tx-layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+/* Pratinjau stok: stok saat ini -> stok setelah transaksi */
+.stock-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-primary-50);
+  border: var(--border-w) solid var(--c-primary-200);
+  border-radius: var(--radius-sm);
+}
+
+.stock-preview[hidden] {
+  display: none;
+}
+
+.stock-preview__col {
+  display: grid;
+  gap: 2px;
+}
+
+.stock-preview__label {
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+}
+
+.stock-preview__value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stock-preview__arrow {
+  color: var(--c-primary-500);
+}
+
+.stock-preview.is-over {
+  background: var(--c-danger-soft);
+  border-color: var(--c-danger);
+}
+
+.stock-preview.is-over .stock-preview__after {
+  color: var(--c-danger-strong);
+}
+
+.stock-preview__note {
+  margin-left: auto;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-danger-strong);
+}
+
+/* Jumlah di tabel riwayat */
+.qty--in  { color: var(--c-in-strong);  font-weight: var(--fw-semibold); }
+.qty--out { color: var(--c-out-strong); font-weight: var(--fw-semibold); }
