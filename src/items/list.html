@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Master Barang · Gudang Pustaka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../aseets/css/tokens.css">
+  <link rel="stylesheet" href="../aseets/css/base.css">
+  <link rel="stylesheet" href="../aseets/css/components.css">
+  <link rel="stylesheet" href="../aseets/css/pages-dashboard-items.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+      <a class="sidebar__brand" href="/index.html">
+        <span class="sidebar__mark">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+            <path d="m3 8 9 5 9-5"/>
+            <path d="M12 13v8"/>
+          </svg>
+        </span>
+        <span>Gudang Pustaka</span>
+      </a>
+      <nav class="nav">
+        <p class="nav__label">Ringkasan</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link" href="/index.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="9" rx="1"/>
+                <rect x="14" y="3" width="7" height="5" rx="1"/>
+                <rect x="14" y="12" width="7" height="9" rx="1"/>
+                <rect x="3" y="16" width="7" height="5" rx="1"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+        </ul>
+        <p class="nav__label">Data</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link is-active" href="/items/list.html" aria-current="page">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+                <path d="m3 8 9 5 9-5"/>
+                <path d="M12 13v8"/>
+              </svg>
+              <span>Master Barang</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__link" href="/suppliers/list.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 6h11v10H3z"/>
+                <path d="M14 9h4l3 3v4h-7"/>
+                <circle cx="7" cy="18" r="2"/>
+                <circle cx="17" cy="18" r="2"/>
+              </svg>
+              <span>Supplier</span>
+            </a>
+          </li>
+        </ul>
+        <p class="nav__label">Transaksi</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link" href="/transactions/in.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 4v12"/>
+                <path d="m6 11 6 6 6-6"/>
+                <path d="M5 20h14"/>
+              </svg>
+              <span>Barang Masuk</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__link" href="/transactions/out.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20V8"/>
+                <path d="m6 13 6-6 6 6"/>
+                <path d="M5 4h14"/>
+              </svg>
+              <span>Barang Keluar</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+    <div class="app__main">
+      <header class="topbar">
+        <button type="button" class="btn btn--ghost btn--icon" id="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Buka menu">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16"/>
+            <path d="M4 12h16"/>
+            <path d="M4 18h16"/>
+          </svg>
+        </button>
+        <span class="topbar__title">Gudang Pustaka</span>
+      </header>
+
+      <main class="content" id="main">
+        <div class="page-header">
+          <div>
+            <h1 class="page-header__title">Master Barang</h1>
+            <p class="page-header__subtitle">Daftar seluruh barang di gudang beserta stok dan statusnya.</p>
+          </div>
+          <a class="btn btn--primary" href="/items/create.html">
+            <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14"/>
+              <path d="M5 12h14"/>
+            </svg>
+            <span>Tambah barang</span>
+          </a>
+        </div>
+
+        <!-- Panel filter / pencarian -->
+        <section class="panel">
+          <header class="panel__header">
+            <h2 class="panel__title">Tabel daftar barang</h2>
+          </header>
+          <div class="panel__body">
+            <form class="filter-bar" method="get" action="/items/list.html">
+              <div class="filter-bar__field filter-bar__field--grow">
+                <label class="form-label" for="q">Cari barang</label>
+                <input
+                  class="input"
+                  type="search"
+                  id="q"
+                  name="q"
+                  placeholder="Cari nama atau SKU…"
+                  autocomplete="off"
+                >
+              </div>
+              <div class="filter-bar__field">
+                <label class="form-label" for="category">Kategori</label>
+                <select class="select" id="category" name="category">
+                  <option value="">Semua kategori</option>
+                  <option value="alat-tulis">Alat Tulis</option>
+                  <option value="elektronik">Elektronik</option>
+                  <option value="kemasan">Kemasan</option>
+                  <option value="kebersihan">Kebersihan</option>
+                  <option value="perkakas-k3">Perkakas &amp; K3</option>
+                </select>
+              </div>
+              <div class="filter-bar__actions">
+                <button type="submit" class="btn btn--primary">
+                  <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m20 20-3.5-3.5"/>
+                  </svg>
+                  <span>Cari</span>
+                </button>
+                <a class="btn btn--ghost" href="/items/list.html">Atur ulang</a>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <!-- Panel tabel -->
+        <section class="panel">
+          <div class="table-wrap">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>SKU</th>
+                  <th>Nama barang</th>
+                  <th>Kategori</th>
+                  <th>Stok</th>
+                  <th>Status</th>
+                  <th class="table__actions">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="sku">BRG-001</span></td>
+                  <td>Kertas HVS A4 80 gsm</td>
+                  <td>Alat Tulis</td>
+                  <td>42 rim</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-001" title="Ubah Kertas HVS A4 80 gsm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-001" title="Hapus Kertas HVS A4 80 gsm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-002</span></td>
+                  <td>Pulpen Gel Hitam 0,5 mm</td>
+                  <td>Alat Tulis</td>
+                  <td>120 pcs</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-002" title="Ubah Pulpen Gel Hitam 0,5 mm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-002" title="Hapus Pulpen Gel Hitam 0,5 mm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-003</span></td>
+                  <td>Tinta Printer Hitam</td>
+                  <td>Elektronik</td>
+                  <td>4 botol</td>
+                  <td><span class="badge badge--warning">Menipis</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-003" title="Ubah Tinta Printer Hitam">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-003" title="Hapus Tinta Printer Hitam">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-004</span></td>
+                  <td>Kabel HDMI 2 m</td>
+                  <td>Elektronik</td>
+                  <td>0 pcs</td>
+                  <td><span class="badge badge--danger">Habis</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-004" title="Ubah Kabel HDMI 2 m">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-004" title="Hapus Kabel HDMI 2 m">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-005</span></td>
+                  <td>Lakban Bening 48 mm</td>
+                  <td>Kemasan</td>
+                  <td>18 roll</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-005" title="Ubah Lakban Bening 48 mm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-005" title="Hapus Lakban Bening 48 mm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-006</span></td>
+                  <td>Kardus Ukuran Sedang</td>
+                  <td>Kemasan</td>
+                  <td>5 pak</td>
+                  <td><span class="badge badge--warning">Menipis</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-006" title="Ubah Kardus Ukuran Sedang">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-006" title="Hapus Kardus Ukuran Sedang">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-007</span></td>
+                  <td>Cairan Pembersih Lantai 1 L</td>
+                  <td>Kebersihan</td>
+                  <td>26 botol</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-007" title="Ubah Cairan Pembersih Lantai 1 L">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-007" title="Hapus Cairan Pembersih Lantai 1 L">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-008</span></td>
+                  <td>Sarung Tangan Kerja</td>
+                  <td>Perkakas &amp; K3</td>
+                  <td>3 pasang</td>
+                  <td><span class="badge badge--warning">Menipis</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-008" title="Ubah Sarung Tangan Kerja">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-008" title="Hapus Sarung Tangan Kerja">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-009</span></td>
+                  <td>Obeng Set 12 in 1</td>
+                  <td>Perkakas &amp; K3</td>
+                  <td>12 set</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-009" title="Ubah Obeng Set 12 in 1">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-009" title="Hapus Obeng Set 12 in 1">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-010</span></td>
+                  <td>Kantong Sampah 60 x 100 cm</td>
+                  <td>Kebersihan</td>
+                  <td>0 pak</td>
+                  <td><span class="badge badge--danger">Habis</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-010" title="Ubah Kantong Sampah 60 x 100 cm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-010" title="Hapus Kantong Sampah 60 x 100 cm">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-011</span></td>
+                  <td>Baterai AA Alkaline</td>
+                  <td>Elektronik</td>
+                  <td>64 pak</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-011" title="Ubah Baterai AA Alkaline">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-011" title="Hapus Baterai AA Alkaline">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="sku">BRG-012</span></td>
+                  <td>Map Plastik Folio</td>
+                  <td>Alat Tulis</td>
+                  <td>80 pcs</td>
+                  <td><span class="badge badge--success">Aman</span></td>
+                  <td class="table__actions">
+                    <a class="btn btn--ghost btn--sm" href="/items/edit.html?sku=BRG-012" title="Ubah Map Plastik Folio">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 20h9"/>
+                        <path d="M16.5 3.5a2.12 2.12 0 1 1 3 3L7 19l-4 1 1-4Z"/>
+                      </svg>
+                      <span>Ubah</span>
+                    </a>
+                    <a class="btn btn--ghost btn--sm btn--danger-text" href="/items/delete.html?sku=BRG-012" title="Hapus Map Plastik Folio">
+                      <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"/>
+                        <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
+                        <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                      </svg>
+                      <span>Hapus</span>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty state (disembunyikan, ditunjukkan saat hasil pencarian kosong) -->
+          <div class="empty-state" hidden>
+            <svg class="icon" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/>
+              <path d="m20 20-3.5-3.5"/>
+            </svg>
+            <h3 class="empty-state__title">Barang tidak ditemukan</h3>
+            <p class="empty-state__desc">Coba kata kunci lain, atau tambahkan barang baru.</p>
+            <a class="btn btn--primary" href="/items/create.html">
+              <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14"/>
+                <path d="M5 12h14"/>
+              </svg>
+              <span>Tambah barang</span>
+            </a>
+          </div>
+
+          <footer class="panel__footer">
+            <p class="text-muted text-small">Menampilkan <strong>12</strong> dari <strong>12</strong> barang</p>
+          </footer>
+        </section>
+      </main>
+    </div><!-- /.app__main -->
+  </div><!-- /.app -->
+
+  <script>
+    // Menu samping untuk layar kecil
+    (function () {
+      var toggle  = document.getElementById('menu-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebar-overlay');
+      if (!toggle || !sidebar || !overlay) return;
+
+      function setOpen(open) {
+        sidebar.classList.toggle('is-open', open);
+        overlay.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!sidebar.classList.contains('is-open'));
+      });
+      overlay.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
+</body>
+</html>

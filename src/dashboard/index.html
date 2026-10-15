@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!-- =============================================================================
+  index.html  ->  nanti diganti nama menjadi index.php
+  Cari semua petunjuk backend dengan mencari kata:  BACKEND:
+============================================================================== -->
+<!-- BACKEND: ▼ MULAI partials/header.php (potong dari <!DOCTYPE> sampai <main ...>) -->
+<!-- BACKEND: variabel yang perlu disediakan tiap halaman sebelum include header.php:
+       $pageTitle  = 'Dashboard';    (untuk <title> dan judul di topbar)
+       $activePage = 'dashboard';   (menandai menu yang aktif)
+     Semua path (assets/..., items/...) lebih aman ditulis dari akar web
+     (/assets/css/tokens.css, /items/list.php) supaya header.php bisa dipakai dari folder mana pun. -->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Gudang Pustaka</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../aseets/css/tokens.css">
+  <link rel="stylesheet" href="../aseets/css/base.css">
+  <link rel="stylesheet" href="../aseets/css/components.css">
+  <link rel="stylesheet" href="../aseets/css/pages-dashboard-items.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi">
+      <a class="sidebar__brand" href="index.html">
+        <span class="sidebar__mark"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
+        Gudang Pustaka
+      </a>
+      <nav aria-label="Menu utama">
+          <p class="nav__label">Utama</p>
+          <ul class="nav__list">
+            <li><a class="nav__link is-active" href="index.html" aria-current="page"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>Dashboard</a></li>
+            <li><a class="nav__link" href="items/list.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>Master Barang</a></li>
+          </ul>
+          <p class="nav__label">Transaksi</p>
+          <ul class="nav__list">
+            <li><a class="nav__link" href="transactions/in.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17V3"/><path d="m6 11 6 6 6-6"/><path d="M19 21H5"/></svg>Barang Masuk</a></li>
+            <li><a class="nav__link" href="transactions/out.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m18 9-6-6-6 6"/><path d="M12 3v14"/><path d="M5 21h14"/></svg>Barang Keluar</a></li>
+          </ul>
+          <p class="nav__label">Data</p>
+          <ul class="nav__list">
+            <li><a class="nav__link" href="suppliers/list.html"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>Supplier</a></li>
+          </ul>
+      </nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+    <div class="app__main">
+      <header class="topbar">
+        <button type="button" class="btn btn--ghost btn--icon" id="menu-toggle"
+                aria-controls="sidebar" aria-expanded="false" aria-label="Buka menu"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button>
+        <span class="topbar__title">Dashboard</span>
+      </header>
+
+      <main class="content" id="main">
+<!-- BACKEND: ▲ SELESAI partials/header.php -->
+
+<!-- ===================== ISI HALAMAN (khusus index.html) ===================== -->
+<!-- BACKEND: halaman ini hanya MEMBACA data. Query-nya ada di PANDUAN_BACKEND.md bagian "Dashboard".
+     Tiga blok data: (1) empat angka ringkasan, (2) barang stok <= 5, (3) 6 transaksi terbaru. -->
+
+<div class="page-header">
+  <h1 class="page-header__title">Dashboard</h1>
+  <p class="page-header__subtitle">Ringkasan stok gudang, barang yang perlu diisi ulang, dan transaksi terbaru.</p>
+</div>
+
+<!-- BACKEND (1): angka ringkasan. Hitung dari tabel Items.
+     Jenis barang = COUNT(*), Total stok = SUM(Quantity), Menipis = 1..5, Habis = 0 -->
+<section class="stats" aria-label="Ringkasan stok">
+  <div class="card stat">
+    <span class="stat__icon"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></span>
+    <div>
+      <p class="stat__label">Jenis barang</p>
+      <p class="stat__value">12</p>
+      <p class="stat__note">SKU terdaftar</p>
+    </div>
+  </div>
+  <div class="card stat">
+    <span class="stat__icon stat__icon--ok"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg></span>
+    <div>
+      <p class="stat__label">Total stok</p>
+      <p class="stat__value">374</p>
+      <p class="stat__note">Seluruh satuan</p>
+    </div>
+  </div>
+  <div class="card stat">
+    <span class="stat__icon stat__icon--warn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+    <div>
+      <p class="stat__label">Stok menipis</p>
+      <p class="stat__value">3</p>
+      <p class="stat__note">Sisa 1 sampai 5</p>
+    </div>
+  </div>
+  <div class="card stat">
+    <span class="stat__icon stat__icon--danger"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></span>
+    <div>
+      <p class="stat__label">Stok habis</p>
+      <p class="stat__value">2</p>
+      <p class="stat__note">Sisa 0</p>
+    </div>
+  </div>
+</section>
+
+<div class="dash-grid">
+
+  <!-- BACKEND (2): barang dengan Quantity <= 5, urut Quantity naik. Badge dihitung dari Quantity (lihat helper stockStatus). -->
+  <section class="card" aria-labelledby="low-title">
+    <div class="card__header card__header--split">
+      <h2 class="card__title" id="low-title">Barang perlu diisi ulang</h2>
+      <a class="card__link" href="items/list.html">Lihat semua barang</a>
+    </div>
+    <div class="table-wrap">
+      <table class="table table--hover">
+        <caption class="visually-hidden">Barang dengan stok menipis atau habis</caption>
+        <thead>
+          <tr>
+            <th scope="col">Barang</th>
+            <th scope="col" class="num">Stok</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td>Kabel HDMI 2 m<span class="table__sub sku">BRG-004</span></td>
+                <td class="num">0<span class="table__sub">pcs</span></td>
+                <td><span class="badge badge--danger">Habis</span></td>
+              </tr>
+              <tr>
+                <td>Kantong Sampah 60 x 100 cm<span class="table__sub sku">BRG-010</span></td>
+                <td class="num">0<span class="table__sub">pak</span></td>
+                <td><span class="badge badge--danger">Habis</span></td>
+              </tr>
+              <tr>
+                <td>Sarung Tangan Kerja<span class="table__sub sku">BRG-008</span></td>
+                <td class="num">3<span class="table__sub">pasang</span></td>
+                <td><span class="badge badge--warn">Menipis</span></td>
+              </tr>
+              <tr>
+                <td>Tinta Printer Hitam<span class="table__sub sku">BRG-003</span></td>
+                <td class="num">4<span class="table__sub">botol</span></td>
+                <td><span class="badge badge--warn">Menipis</span></td>
+              </tr>
+              <tr>
+                <td>Kardus Ukuran Sedang<span class="table__sub sku">BRG-006</span></td>
+                <td class="num">5<span class="table__sub">pak</span></td>
+                <td><span class="badge badge--warn">Menipis</span></td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- BACKEND: kalau tidak ada barang menipis, ganti tabel dengan:
+         <div class="empty"><p class="empty__title">Semua stok aman</p><p>Belum ada barang yang perlu diisi ulang.</p></div> -->
+  </section>
+
+  <!-- BACKEND (3): 6 baris terakhir dari StockTransactions, urut TransactionDate DESC,
+       JOIN Items (nama, unit) dan LEFT JOIN Suppliers (supplier hanya ada untuk IN). -->
+  <section class="card" aria-labelledby="tx-title">
+    <div class="card__header">
+      <h2 class="card__title" id="tx-title">Transaksi terbaru</h2>
+    </div>
+    <div class="table-wrap">
+      <table class="table table--hover">
+        <caption class="visually-hidden">Enam transaksi barang masuk dan keluar terakhir</caption>
+        <thead>
+          <tr>
+            <th scope="col">Waktu</th>
+            <th scope="col">Barang</th>
+            <th scope="col">Tipe</th>
+            <th scope="col" class="num">Jumlah</th>
+          </tr>
+        </thead>
+        <tbody>
+              <tr>
+                <td><time datetime="2026-10-14T09:15">14 Okt 2026, 09.15</time></td>
+                <td>Kertas HVS A4 80 gsm<span class="table__sub sku">BRG-001</span><span class="table__sub">CV Sinar Abadi</span></td>
+                <td><span class="badge badge--in">IN</span></td>
+                <td class="num"><span class="qty--in">+20</span><span class="table__sub">rim</span></td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-10-13T16:40">13 Okt 2026, 16.40</time></td>
+                <td>Pulpen Gel Hitam 0,5 mm<span class="table__sub sku">BRG-002</span></td>
+                <td><span class="badge badge--out">OUT</span></td>
+                <td class="num"><span class="qty--out">−10</span><span class="table__sub">pcs</span></td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-10-13T14:05">13 Okt 2026, 14.05</time></td>
+                <td>Lakban Bening 48 mm<span class="table__sub sku">BRG-005</span><span class="table__sub">PT Kemasan Nusantara</span></td>
+                <td><span class="badge badge--in">IN</span></td>
+                <td class="num"><span class="qty--in">+12</span><span class="table__sub">roll</span></td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-10-12T11:30">12 Okt 2026, 11.30</time></td>
+                <td>Tinta Printer Hitam<span class="table__sub sku">BRG-003</span></td>
+                <td><span class="badge badge--out">OUT</span></td>
+                <td class="num"><span class="qty--out">−2</span><span class="table__sub">botol</span></td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-10-12T09:00">12 Okt 2026, 09.00</time></td>
+                <td>Baterai AA Alkaline<span class="table__sub sku">BRG-011</span><span class="table__sub">CV Sinar Abadi</span></td>
+                <td><span class="badge badge--in">IN</span></td>
+                <td class="num"><span class="qty--in">+24</span><span class="table__sub">pak</span></td>
+              </tr>
+              <tr>
+                <td><time datetime="2026-10-11T15:20">11 Okt 2026, 15.20</time></td>
+                <td>Kabel HDMI 2 m<span class="table__sub sku">BRG-004</span></td>
+                <td><span class="badge badge--out">OUT</span></td>
+                <td class="num"><span class="qty--out">−3</span><span class="table__sub">pcs</span></td>
+              </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- BACKEND: kalau belum ada transaksi, tampilkan blok .empty seperti di atas ("Belum ada transaksi"). -->
+  </section>
+
+</div>
+<!-- ===================== AKHIR ISI HALAMAN ===================== -->
+
+<!-- BACKEND: ▼ MULAI partials/footer.php (sama persis dengan berkas footer.php yang sudah ada) -->
+      </main>
+    </div><!-- /.app__main -->
+  </div><!-- /.app -->
+
+  <script>
+    // Menu samping untuk layar kecil
+    (function () {
+      var toggle  = document.getElementById('menu-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebar-overlay');
+      if (!toggle || !sidebar || !overlay) return;
+
+      function setOpen(open) {
+        sidebar.classList.toggle('is-open', open);
+        overlay.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!sidebar.classList.contains('is-open'));
+      });
+      overlay.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
+</body>
+</html>
+<!-- BACKEND: ▲ SELESAI partials/footer.php -->
