@@ -1,0 +1,201 @@
+/* ==========================================================================
+   pages.css - gaya khusus per halaman
+   ========================================================================== */
+
+/* ---------- Halaman transaksi (in.php dan out.php) ---------- */
+
+.tx-layout {
+  display: grid;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .tx-layout {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+}
+
+/* Pratinjau stok: stok saat ini -> stok setelah transaksi */
+.stock-preview {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  background: var(--c-primary-50);
+  border: var(--border-w) solid var(--c-primary-200);
+  border-radius: var(--radius-sm);
+}
+
+.stock-preview[hidden] {
+  display: none;
+}
+
+.stock-preview__col {
+  display: grid;
+  gap: 2px;
+}
+
+.stock-preview__label {
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+}
+
+.stock-preview__value {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.stock-preview__arrow {
+  color: var(--c-primary-500);
+}
+
+.stock-preview.is-over {
+  background: var(--c-danger-soft);
+  border-color: var(--c-danger);
+}
+
+.stock-preview.is-over .stock-preview__after {
+  color: var(--c-danger-strong);
+}
+
+.stock-preview__note {
+  margin-left: auto;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-danger-strong);
+}
+
+/* Jumlah di tabel riwayat */
+.qty--in  { color: var(--c-in-strong);  font-weight: var(--fw-semibold); }
+.qty--out { color: var(--c-out-strong); font-weight: var(--fw-semibold); }
+
+/* ---------- Halaman supplier ---------- */
+
+.supplier-layout {
+  display: grid;
+  gap: var(--sp-5);
+  align-items: start;
+}
+
+@media (min-width: 1200px) {
+  .supplier-layout {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+}
+
+#supplier-table td:nth-child(3),
+#supplier-table td:nth-child(5),
+#supplier-table td:nth-child(6) {
+  white-space: nowrap;
+}
+
+.card__header--split {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.toolbar {
+  padding: var(--sp-3) var(--sp-5);
+  border-bottom: var(--border-w) solid var(--c-border);
+}
+
+.search {
+  position: relative;
+  max-width: 360px;
+}
+
+.search .icon {
+  position: absolute;
+  left: var(--sp-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--c-text-faint);
+  pointer-events: none;
+}
+
+.search .input {
+  padding-left: calc(var(--sp-3) + 18px + var(--sp-2));
+}
+
+.btn--sm {
+  height: var(--control-h-sm);
+  padding: 0 var(--sp-3);
+}
+
+.badge--neutral {
+  background: var(--c-surface-sunken);
+  color: var(--c-text-muted);
+}
+
+.badge--cat {
+  background: var(--c-info-soft);
+  color: var(--c-info-strong);
+}
+
+/* Ringkasan kecil di atas daftar (jumlah vendor, pengiriman) */
+.table td .icon {
+  vertical-align: -3px;
+}
+
+/* ---------- Tambahan halaman transaksi ---------- */
+
+.sidebar__foot {
+  margin-top: auto;
+  padding: var(--sp-4) var(--sp-3) 0;
+}
+
+.sidebar__reset {
+  width: 100%;
+  height: var(--control-h-sm);
+  background: transparent;
+  border: var(--border-w) solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-sm);
+  color: var(--c-text-on-dark);
+  font-size: var(--fs-xs);
+  cursor: pointer;
+}
+
+.sidebar__reset:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar__reset:focus-visible {
+  outline-color: #fff;
+}
+
+.sidebar__note {
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
+  color: var(--c-primary-200);
+}
+
+.form-row {
+  display: grid;
+  gap: var(--sp-5);
+}
+
+@media (min-width: 640px) {
+  .form-row--2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.textarea {
+  width: 100%;
+  min-height: 4.5rem;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--c-surface);
+  border: var(--border-w) solid var(--c-border-strong);
+  border-radius: var(--radius-sm);
+  resize: vertical;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--c-primary-500);
+  box-shadow: var(--focus-ring);
+}

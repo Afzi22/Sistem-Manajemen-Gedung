@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ubah Barang · Gudang Pustaka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../aseets/css/tokens.css">
+  <link rel="stylesheet" href="../aseets/css/base.css">
+  <link rel="stylesheet" href="../aseets/css/components.css">
+  <link rel="stylesheet" href="../aseets/css/pages-dashboard-items.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+      <a class="sidebar__brand" href="/index.html">
+        <span class="sidebar__mark">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+            <path d="m3 8 9 5 9-5"/>
+            <path d="M12 13v8"/>
+          </svg>
+        </span>
+        <span>Gudang Pustaka</span>
+      </a>
+      <nav class="nav">
+        <p class="nav__label">Ringkasan</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link" href="/index.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="9" rx="1"/>
+                <rect x="14" y="3" width="7" height="5" rx="1"/>
+                <rect x="14" y="12" width="7" height="9" rx="1"/>
+                <rect x="3" y="16" width="7" height="5" rx="1"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+        </ul>
+        <p class="nav__label">Data</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link is-active" href="/items/list.html" aria-current="page">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+                <path d="m3 8 9 5 9-5"/>
+                <path d="M12 13v8"/>
+              </svg>
+              <span>Master Barang</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__link" href="/suppliers/list.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 6h11v10H3z"/>
+                <path d="M14 9h4l3 3v4h-7"/>
+                <circle cx="7" cy="18" r="2"/>
+                <circle cx="17" cy="18" r="2"/>
+              </svg>
+              <span>Supplier</span>
+            </a>
+          </li>
+        </ul>
+        <p class="nav__label">Transaksi</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link" href="/transactions/in.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 4v12"/>
+                <path d="m6 11 6 6 6-6"/>
+                <path d="M5 20h14"/>
+              </svg>
+              <span>Barang Masuk</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__link" href="/transactions/out.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20V8"/>
+                <path d="m6 13 6-6 6 6"/>
+                <path d="M5 4h14"/>
+              </svg>
+              <span>Barang Keluar</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+
+    <div class="app__main">
+      <header class="topbar">
+        <button type="button" class="btn btn--ghost btn--icon" id="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Buka menu">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16"/>
+            <path d="M4 12h16"/>
+            <path d="M4 18h16"/>
+          </svg>
+        </button>
+        <span class="topbar__title">Gudang Pustaka</span>
+      </header>
+
+      <main class="content" id="main">
+        <a class="back-link" href="/items/list.html">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="m12 19-7-7 7-7"/>
+            <path d="M19 12H5"/>
+          </svg>
+          <span>Kembali ke daftar barang</span>
+        </a>
+
+        <div class="page-header">
+          <h1 class="page-header__title">Ubah barang</h1>
+          <p class="page-header__subtitle">Perbarui nama, kategori, atau satuan barang. Kolom bertanda <abbr title="wajib">*</abbr> wajib diisi.</p>
+        </div>
+
+        <form class="form" action="update.html" method="post" novalidate>
+          <input type="hidden" name="csrf" value="">
+
+          <section class="panel">
+            <header class="panel__header">
+              <h2 class="panel__title">Data barang</h2>
+            </header>
+            <div class="panel__body">
+              <div class="form-grid">
+                <div class="form-group form-group--full">
+                  <label class="form-label" for="sku">
+                    SKU
+                  </label>
+                  <input
+                    class="input"
+                    type="text"
+                    id="sku"
+                    name="sku"
+                    value="BRG-001"
+                    readonly
+                    aria-readonly="true"
+                  >
+                  <p class="form-hint">SKU tidak bisa diubah karena dipakai di riwayat transaksi.</p>
+                </div>
+
+                <div class="form-group form-group--full">
+                  <label class="form-label" for="name">
+                    Nama barang <abbr title="wajib">*</abbr>
+                  </label>
+                  <input
+                    class="input"
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    maxlength="120"
+                    autocomplete="off"
+                    value="Kertas HVS A4 80 gsm"
+                  >
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="category">
+                    Kategori <abbr title="wajib">*</abbr>
+                  </label>
+                  <select class="select" id="category" name="category" required>
+                    <option value="">Pilih kategori…</option>
+                    <option value="alat-tulis" selected>Alat Tulis</option>
+                    <option value="elektronik">Elektronik</option>
+                    <option value="kemasan">Kemasan</option>
+                    <option value="kebersihan">Kebersihan</option>
+                    <option value="perkakas-k3">Perkakas &amp; K3</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="current_stock">
+                    Stok saat ini
+                  </label>
+                  <input
+                    class="input"
+                    type="text"
+                    id="current_stock"
+                    value="45 rim"
+                    readonly
+                    aria-readonly="true"
+                  >
+                  <p class="form-hint">Stok berubah lewat menu Barang Masuk dan Barang Keluar.</p>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="unit">
+                    Satuan <abbr title="wajib">*</abbr>
+                  </label>
+                  <input
+                    class="input"
+                    type="text"
+                    id="unit"
+                    name="unit"
+                    list="unit-suggestions"
+                    required
+                    maxlength="24"
+                    autocomplete="off"
+                    value="rim"
+                  >
+                  <datalist id="unit-suggestions">
+                    <option value="pcs"></option>
+                    <option value="rim"></option>
+                    <option value="pak"></option>
+                    <option value="roll"></option>
+                    <option value="botol"></option>
+                    <option value="kotak"></option>
+                    <option value="pasang"></option>
+                    <option value="set"></option>
+                  </datalist>
+                  <p class="form-hint">Pilih dari saran atau ketik sendiri.</p>
+                </div>
+              </div>
+            </div>
+            <footer class="panel__footer">
+              <div class="form-actions">
+                <button type="submit" class="btn btn--primary">
+                  <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="m8 12 3 3 5-6"/>
+                  </svg>
+                  <span>Simpan perubahan</span>
+                </button>
+                <a class="btn btn--ghost" href="/items/list.html">Batal</a>
+              </div>
+            </footer>
+          </section>
+        </form>
+      </main>
+    </div><!-- /.app__main -->
+  </div><!-- /.app -->
+
+  <script>
+    // Menu samping untuk layar kecil
+    (function () {
+      var toggle  = document.getElementById('menu-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebar-overlay');
+      if (!toggle || !sidebar || !overlay) return;
+
+      function setOpen(open) {
+        sidebar.classList.toggle('is-open', open);
+        overlay.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!sidebar.classList.contains('is-open'));
+      });
+      overlay.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
+</body>
+</html>

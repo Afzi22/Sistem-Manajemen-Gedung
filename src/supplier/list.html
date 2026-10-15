@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard · Gudang Pustaka</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/tokens.css">
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/pages.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Lewati ke konten utama</a>
+  <div class="app">
+    <aside class="sidebar" id="sidebar" aria-label="Navigasi utama">
+      <a class="sidebar__brand" href="index.html">
+        <span class="sidebar__mark">
+          <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+            <path d="m3 8 9 5 9-5"/>
+            <path d="M12 13v8"/>
+          </svg>
+        </span>
+        <span>Gudang Pustaka</span>
+      </a>
+      <nav class="nav">
+        <p class="nav__label">Ringkasan</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link is-active" href="index.html" aria-current="page">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="9" rx="1"/>
+                <rect x="14" y="3" width="7" height="5" rx="1"/>
+                <rect x="14" y="12" width="7" height="9" rx="1"/>
+                <rect x="3" y="16" width="7" height="5" rx="1"/>
+              </svg>
+              <span>Dashboard</span>
+            </a>
+          </li>
+        </ul>
+        <p class="nav__label">Data</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link" href="items/list.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+                <path d="m3 8 9 5 9-5"/>
+                <path d="M12 13v8"/>
+              </svg>
+              <span>Master Barang</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__link" href="suppliers/list.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 6h11v10H3z"/>
+                <path d="M14 9h4l3 3v4h-7"/>
+                <circle cx="7" cy="18" r="2"/>
+                <circle cx="17" cy="18" r="2"/>
+              </svg>
+              <span>Supplier</span>
+            </a>
+          </li>
+        </ul>
+        <p class="nav__label">Transaksi</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__link" href="transactions/in.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 4v12"/>
+                <path d="m6 11 6 6 6-6"/>
+                <path d="M5 20h14"/>
+              </svg>
+              <span>Barang Masuk</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__link" href="transactions/out.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 20V8"/>
+                <path d="m6 13 6-6 6 6"/>
+                <path d="M5 4h14"/>
+              </svg>
+              <span>Barang Keluar</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay" hidden></div>
+    <div class="app__main">
+      <header class="topbar">
+        <button type="button" class="btn btn--ghost btn--icon" id="menu-toggle" aria-controls="sidebar" aria-expanded="false" aria-label="Buka menu">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 6h16"/>
+            <path d="M4 12h16"/>
+            <path d="M4 18h16"/>
+          </svg>
+        </button>
+        <span class="topbar__title">Gudang Pustaka</span>
+      </header>
+      <main class="content" id="main">
+        <div class="page-header">
+          <h1 class="page-header__title">Dashboard</h1>
+          <p class="page-header__subtitle">Ringkasan stok gudang, barang yang perlu diisi ulang, dan transaksi terbaru.</p>
+        </div>
+
+        <section class="dashboard">
+          <!-- Ringkasan statistik -->
+          <div class="stat-grid">
+            <article class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 8 12 3 3 8v8l9 5 9-5z"/>
+                  <path d="m3 8 9 5 9-5"/>
+                  <path d="M12 13v8"/>
+                </svg>
+              </div>
+              <div class="stat-card__body">
+                <p class="stat-card__label">Jenis barang</p>
+                <p class="stat-card__value">12</p>
+                <p class="stat-card__hint">SKU terdaftar</p>
+              </div>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="7" height="9" rx="1"/>
+                  <rect x="14" y="3" width="7" height="5" rx="1"/>
+                  <rect x="14" y="12" width="7" height="9" rx="1"/>
+                  <rect x="3" y="16" width="7" height="5" rx="1"/>
+                </svg>
+              </div>
+              <div class="stat-card__body">
+                <p class="stat-card__label">Total stok</p>
+                <p class="stat-card__value">374</p>
+                <p class="stat-card__hint">Seluruh satuan</p>
+              </div>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 8v5"/>
+                  <path d="M12 16.5h.01"/>
+                </svg>
+              </div>
+              <div class="stat-card__body">
+                <p class="stat-card__label">Stok menipis</p>
+                <p class="stat-card__value">3</p>
+                <p class="stat-card__hint">Sisa 1 sampai 5</p>
+              </div>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-card__icon" aria-hidden="true">
+                <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9"/>
+                  <path d="M12 8v5"/>
+                  <path d="M12 16.5h.01"/>
+                </svg>
+              </div>
+              <div class="stat-card__body">
+                <p class="stat-card__label">Stok habis</p>
+                <p class="stat-card__value">2</p>
+                <p class="stat-card__hint">Sisa 0</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Barang perlu diisi ulang -->
+          <section class="panel">
+            <header class="panel__header">
+              <h2 class="panel__title">Barang perlu diisi ulang</h2>
+              <a class="btn btn--ghost" href="items/list.html">Lihat semua barang</a>
+            </header>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Barang</th>
+                    <th>Stok</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>Kabel HDMI 2 m</strong>
+                      <small>BRG-004</small>
+                    </td>
+                    <td>0 pcs</td>
+                    <td><span class="badge badge--danger">Habis</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Kantong Sampah 60 x 100 cm</strong>
+                      <small>BRG-010</small>
+                    </td>
+                    <td>0 pak</td>
+                    <td><span class="badge badge--danger">Habis</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Sarung Tangan Kerja</strong>
+                      <small>BRG-008</small>
+                    </td>
+                    <td>3 pasang</td>
+                    <td><span class="badge badge--warning">Menipis</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Tinta Printer Hitam</strong>
+                      <small>BRG-003</small>
+                    </td>
+                    <td>4 botol</td>
+                    <td><span class="badge badge--warning">Menipis</span></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Kardus Ukuran Sedang</strong>
+                      <small>BRG-006</small>
+                    </td>
+                    <td>5 pak</td>
+                    <td><span class="badge badge--warning">Menipis</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Transaksi terbaru -->
+          <section class="panel">
+            <header class="panel__header">
+              <h2 class="panel__title">Transaksi terbaru</h2>
+            </header>
+            <div class="table-wrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Waktu</th>
+                    <th>Barang</th>
+                    <th>Tipe</th>
+                    <th>Jumlah</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>14 Okt 2026, 09.15</td>
+                    <td>
+                      <strong>Kertas HVS A4 80 gsm</strong>
+                      <small>BRG-001</small>
+                      <small>CV Sinar Abadi</small>
+                    </td>
+                    <td><span class="badge badge--success">IN</span></td>
+                    <td>+20 rim</td>
+                  </tr>
+                  <tr>
+                    <td>13 Okt 2026, 16.40</td>
+                    <td>
+                      <strong>Pulpen Gel Hitam 0,5 mm</strong>
+                      <small>BRG-002</small>
+                    </td>
+                    <td><span class="badge badge--danger">OUT</span></td>
+                    <td>−10 pcs</td>
+                  </tr>
+                  <tr>
+                    <td>13 Okt 2026, 14.05</td>
+                    <td>
+                      <strong>Lakban Bening 48 mm</strong>
+                      <small>BRG-005</small>
+                      <small>PT Kemasan Nusantara</small>
+                    </td>
+                    <td><span class="badge badge--success">IN</span></td>
+                    <td>+12 roll</td>
+                  </tr>
+                  <tr>
+                    <td>12 Okt 2026, 11.30</td>
+                    <td>
+                      <strong>Tinta Printer Hitam</strong>
+                      <small>BRG-003</small>
+                    </td>
+                    <td><span class="badge badge--danger">OUT</span></td>
+                    <td>−2 botol</td>
+                  </tr>
+                  <tr>
+                    <td>12 Okt 2026, 09.00</td>
+                    <td>
+                      <strong>Baterai AA Alkaline</strong>
+                      <small>BRG-011</small>
+                      <small>CV Sinar Abadi</small>
+                    </td>
+                    <td><span class="badge badge--success">IN</span></td>
+                    <td>+24 pak</td>
+                  </tr>
+                  <tr>
+                    <td>11 Okt 2026, 15.20</td>
+                    <td>
+                      <strong>Kabel HDMI 2 m</strong>
+                      <small>BRG-004</small>
+                    </td>
+                    <td><span class="badge badge--danger">OUT</span></td>
+                    <td>−3 pcs</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div><!-- /.app__main -->
+  </div><!-- /.app -->
+  <script>
+    // Menu samping untuk layar kecil
+    (function () {
+      var toggle  = document.getElementById('menu-toggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebar-overlay');
+      if (!toggle || !sidebar || !overlay) return;
+
+      function setOpen(open) {
+        sidebar.classList.toggle('is-open', open);
+        overlay.hidden = !open;
+        toggle.setAttribute('aria-expanded', String(open));
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!sidebar.classList.contains('is-open'));
+      });
+      overlay.addEventListener('click', function () { setOpen(false); });
+      document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
+</body>
+</html>

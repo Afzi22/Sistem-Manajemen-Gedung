@@ -1,0 +1,146 @@
+/* ==========================================================================
+   tokens.css - Design tokens Sistem Manajemen Gudang (gudang-pustaka)
+   Lokasi: src/assets/css/tokens.css
+   Aturan: semua warna, ukuran, dan font dipanggil lewat variabel di sini.
+           Jangan menulis nilai hex atau px langsung di berkas CSS lain.
+   ========================================================================== */
+
+:root {
+
+  /* ---------- Warna: Primary (biru slate) ---------- */
+  --c-primary-50:  #EAF1F8;
+  --c-primary-100: #D3E2F0;
+  --c-primary-200: #A9C5E0;
+  --c-primary-500: #2F6DA3;
+  --c-primary-600: #25608F;
+  --c-primary-700: #1F4E79;   /* warna utama: tombol, link, header tabel */
+  --c-primary-800: #173C5D;   /* hover tombol */
+  --c-primary-900: #0F2A42;   /* sidebar */
+
+  /* ---------- Warna: Aksen (oranye) ----------
+     --c-accent hanya untuk ikon, garis, dan elemen besar.
+     Untuk teks atau tombol dengan teks putih pakai --c-accent-strong
+     (kontras 4,5:1). */
+  --c-accent:        #E07B00;
+  --c-accent-strong: #B85F00;
+  --c-accent-stronger: #9A4E00;   /* hover tombol aksen */
+  --c-accent-soft:   #FCEBD6;
+
+  /* ---------- Warna: Netral ---------- */
+  --c-bg:             #F4F6F8;  /* latar halaman */
+  --c-surface:        #FFFFFF;  /* kartu, form, tabel */
+  --c-surface-sunken: #EDF0F3;  /* baris zebra, area input read-only */
+  --c-border:         #D9DEE4;
+  --c-border-strong:  #B8C0C9;
+  --c-text:           #1F2A2E;
+  --c-text-muted:     #55626A;  /* label, keterangan */
+  --c-text-faint:     #7A868E;  /* placeholder, teks nonaktif */
+  --c-text-on-dark:   #E6EDF4;  /* teks di atas sidebar */
+  --c-text-on-primary:#FFFFFF;
+
+  /* ---------- Warna: Status stok & pesan ----------
+     base   = ikon dan garis, atau latar dengan teks putih
+     strong = teks di atas latar putih atau soft
+     soft   = latar badge dan alert */
+  --c-ok:            #2E7D4F;
+  --c-ok-strong:     #1F6B40;
+  --c-ok-soft:       #E6F3EB;
+
+  --c-warn:          #C98A0B;
+  --c-warn-strong:   #8A5A00;
+  --c-warn-soft:     #FFF3D6;
+
+  --c-danger:        #C0392B;
+  --c-danger-strong: #A12D21;
+  --c-danger-soft:   #FBE9E7;
+
+  --c-info:          #2F6DA3;
+  --c-info-strong:   #1F4E79;
+  --c-info-soft:     #EAF1F8;
+
+  /* ---------- Warna: Tipe transaksi ---------- */
+  --c-in-strong:  var(--c-ok-strong);
+  --c-in-soft:    var(--c-ok-soft);
+  --c-out-strong: var(--c-accent-strong);
+  --c-out-soft:   var(--c-accent-soft);
+
+  /* ---------- Tipografi ---------- */
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+
+  --fs-xs:  0.75rem;    /* 12px  catatan kecil */
+  --fs-sm:  0.875rem;   /* 14px  tabel, label */
+  --fs-md:  1rem;       /* 16px  isi teks */
+  --fs-lg:  1.125rem;   /* 18px  judul kartu */
+  --fs-xl:  1.375rem;   /* 22px  judul halaman */
+  --fs-2xl: 1.75rem;    /* 28px  angka statistik dashboard */
+
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+
+  --lh-tight:  1.25;
+  --lh-normal: 1.5;
+  --lh-loose:  1.65;
+
+  /* ---------- Spasi (kelipatan 4px) ---------- */
+  --sp-1:  0.25rem;   /*  4px */
+  --sp-2:  0.5rem;    /*  8px */
+  --sp-3:  0.75rem;   /* 12px */
+  --sp-4:  1rem;      /* 16px */
+  --sp-5:  1.5rem;    /* 24px */
+  --sp-6:  2rem;      /* 32px */
+  --sp-7:  3rem;      /* 48px */
+  --sp-8:  4rem;      /* 64px */
+
+  /* ---------- Bentuk ---------- */
+  --radius-xs:   3px;      /* badge */
+  --radius-sm:   6px;      /* tombol, input */
+  --radius-md:   10px;     /* kartu, tabel */
+  --radius-lg:   14px;     /* modal */
+  --radius-pill: 999px;
+
+  --border-w: 1px;
+
+  /* ---------- Bayangan ---------- */
+  --shadow-sm: 0 1px 2px rgba(15, 42, 66, 0.08);
+  --shadow-md: 0 2px 8px rgba(15, 42, 66, 0.10);
+  --shadow-lg: 0 12px 32px rgba(15, 42, 66, 0.18);
+
+  /* ---------- Ukuran kontrol (target sentuh) ---------- */
+  --control-h:    2.5rem;   /* 40px  input dan tombol */
+  --control-h-sm: 2rem;     /* 32px  tombol di dalam tabel */
+
+  /* ---------- Layout ---------- */
+  --layout-max:    1280px;
+  --sidebar-w:     240px;
+  --topbar-h:      56px;
+  --content-pad:   var(--sp-5);
+
+  /* Breakpoint (CSS belum bisa memakai var() di @media; ini acuan saja):
+     sm 640px | md 960px | lg 1280px */
+
+  /* ---------- Fokus keyboard ---------- */
+  --focus-color: #2F6DA3;
+  --focus-ring:  0 0 0 3px rgba(47, 109, 163, 0.35);
+
+  /* ---------- Lapisan (z-index) ---------- */
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-sidebar:  300;
+  --z-modal:    1000;
+  --z-toast:    1100;
+
+  /* ---------- Gerak ---------- */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Hormati pengguna yang mematikan animasi di sistemnya */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0.01ms;
+    --dur-base: 0.01ms;
+  }
+}
