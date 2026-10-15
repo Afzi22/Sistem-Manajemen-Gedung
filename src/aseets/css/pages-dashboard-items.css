@@ -1,0 +1,322 @@
+/* ==========================================================================
+   pages-dashboard-items.css - gaya khusus Dashboard dan Master Barang
+   Bergantung pada tokens.css, base.css, components.css (muat setelah ketiganya).
+
+   Aturan tim tetap berlaku: semua warna, ukuran, dan font lewat variabel
+   tokens.css. Tidak ada nilai hex atau px langsung di berkas ini.
+
+   Isi berkas:
+     A. Komponen baru yang bisa dipakai ulang halaman lain
+        (nanti boleh dipindah ke components.css)
+     B. Dashboard
+     C. Master Barang (list, create, edit, delete)
+   ========================================================================== */
+
+
+/* ==========================================================================
+   A. KOMPONEN BARU (reusable)
+   ========================================================================== */
+
+/* ---------- Ikon (SVG inline) ---------- */
+
+.icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Tombol tambahan ---------- */
+
+.btn--sm {
+  height: var(--control-h-sm);
+  padding: 0 var(--sp-3);
+}
+
+.btn--danger {
+  background: var(--c-danger);
+  color: var(--c-text-on-primary);
+}
+
+.btn--danger:hover:not(:disabled) {
+  background: var(--c-danger-strong);
+  color: var(--c-text-on-primary);
+}
+
+.btn--danger-ghost {
+  background: transparent;
+  border-color: var(--c-border-strong);
+  color: var(--c-danger-strong);
+}
+
+.btn--danger-ghost:hover:not(:disabled) {
+  background: var(--c-danger-soft);
+  border-color: var(--c-danger);
+  color: var(--c-danger-strong);
+}
+
+/* ---------- Header halaman dengan tombol aksi di kanan ---------- */
+
+.page-header--split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-4);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  margin-bottom: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Header kartu dengan tautan di kanan ---------- */
+
+.card__header--split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-4);
+}
+
+.card__link {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
+
+/* ---------- Form tambahan ---------- */
+
+.form-row {
+  display: grid;
+  gap: var(--sp-5);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 640px) {
+  .form-row--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Dua kolom bersebelahan dengan tinggi hint berbeda: jangan tarik baris ke bawah */
+.field {
+  align-content: start;
+}
+
+.input[readonly] {
+  background: var(--c-surface-sunken);
+  color: var(--c-text-muted);
+  cursor: default;
+}
+
+.card--form {
+  max-width: 44rem;
+}
+
+/* ---------- Tabel tambahan ---------- */
+
+/* Teks .visually-hidden di dalam sel bersifat absolute. Tanpa ini ia keluar dari
+   area scroll dan melebarkan seluruh halaman di layar kecil. */
+.table-wrap {
+  position: relative;
+}
+
+.table--hover tbody tr:hover {
+  background: var(--c-primary-50);
+}
+
+.table__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
+
+.table-footer {
+  padding: var(--sp-3) var(--sp-5);
+  border-top: var(--border-w) solid var(--c-border);
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* Kode SKU */
+.sku {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+}
+
+/* Jumlah transaksi. Tanda + / - tetap ditulis, warna hanya penegas. */
+.qty--in {
+  color: var(--c-in-strong);
+  font-weight: var(--fw-semibold);
+}
+
+.qty--out {
+  color: var(--c-out-strong);
+  font-weight: var(--fw-semibold);
+}
+
+/* ---------- Bilah pencarian dan filter di atas tabel ---------- */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: var(--border-w) solid var(--c-border);
+}
+
+.toolbar__search {
+  position: relative;
+  flex: 1 1 16rem;
+}
+
+.toolbar__search .icon {
+  position: absolute;
+  left: var(--sp-3);
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--c-text-faint);
+  pointer-events: none;
+}
+
+.toolbar__search .input {
+  padding-left: calc(var(--sp-3) + 1.25rem + var(--sp-2));
+}
+
+.toolbar__select {
+  flex: 0 1 13rem;
+}
+
+
+/* ==========================================================================
+   B. DASHBOARD
+   ========================================================================== */
+
+.stats {
+  display: grid;
+  gap: var(--sp-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  margin-bottom: var(--sp-5);
+}
+
+.stat {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
+}
+
+.stat__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--control-h);
+  height: var(--control-h);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-50);
+  color: var(--c-primary-700);
+}
+
+.stat__icon--ok     { background: var(--c-ok-soft);     color: var(--c-ok-strong); }
+.stat__icon--warn   { background: var(--c-warn-soft);    color: var(--c-warn-strong); }
+.stat__icon--danger { background: var(--c-danger-soft);  color: var(--c-danger-strong); }
+
+.stat__label {
+  font-size: var(--fs-sm);
+  color: var(--c-text-muted);
+}
+
+.stat__value {
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__note {
+  font-size: var(--fs-xs);
+  color: var(--c-text-muted);
+}
+
+/* Dua kartu tabel: bertumpuk di layar sempit, berdampingan di layar lebar */
+.dash-grid {
+  display: grid;
+  align-items: start;
+  gap: var(--sp-5);
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 1200px) {
+  .dash-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* ==========================================================================
+   C. MASTER BARANG
+   ========================================================================== */
+
+/* Halaman konfirmasi hapus */
+.confirm {
+  max-width: 36rem;
+}
+
+.confirm__head {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-5);
+}
+
+.confirm__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: var(--sp-7);
+  height: var(--sp-7);
+  border-radius: var(--radius-pill);
+  background: var(--c-danger-soft);
+  color: var(--c-danger-strong);
+}
+
+.confirm__title {
+  margin-bottom: var(--sp-1);
+  font-size: var(--fs-lg);
+}
+
+.detail-list {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--sp-2) var(--sp-5);
+  margin: 0 0 var(--sp-5);
+  padding: var(--sp-4);
+  background: var(--c-surface-sunken);
+  border-radius: var(--radius-sm);
+}
+
+.detail-list dt {
+  color: var(--c-text-muted);
+  font-size: var(--fs-sm);
+}
+
+.detail-list dd {
+  margin: 0;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+}
